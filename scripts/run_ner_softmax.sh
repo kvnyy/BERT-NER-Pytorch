@@ -4,6 +4,9 @@ export DATA_DIR=$CURRENT_DIR/datasets
 export OUTPUR_DIR=$CURRENT_DIR/outputs
 TASK_NAME="cner"
 
+python run_ner_softmax.py --model_type=bert --model_name_or_path="C:/Users/29864/Desktop/BERT-NER-Pytorch/prev_trained_model/bert-base-chinese" --task_name="cner" --do_train --do_eval --do_lower_case --loss_type=ce --data_dir="C:/Users/29864/Desktop/BERT-NER-Pytorch/datasets/cner/" --train_max_seq_length=128 --eval_max_seq_length=512 --per_gpu_train_batch_size=24 --per_gpu_eval_batch_size=24 --learning_rate=3e-5 --num_train_epochs=3.0 --logging_steps=-1 --save_steps=-1 --output_dir="C:/Users/29864/Desktop/BERT-NER-Pytorch/outputs/cner_output/" --overwrite_output_dir --seed=42
+
+
 python run_ner_softmax.py \
   --model_type=bert \
   --model_name_or_path=$BERT_BASE_DIR \

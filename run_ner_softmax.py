@@ -340,7 +340,7 @@ def main():
     args.output_dir = args.output_dir + '{}'.format(args.model_type)
     if not os.path.exists(args.output_dir):
         os.mkdir(args.output_dir)
-    time_ = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime())
+    time_ = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())  # 将 ":" 替换为 "-"
     init_logger(log_file=args.output_dir + f'/{args.model_type}-{args.task_name}-{time_}.log')
     if os.path.exists(args.output_dir) and os.listdir(
             args.output_dir) and args.do_train and not args.overwrite_output_dir:
@@ -385,9 +385,11 @@ def main():
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
     config = config_class.from_pretrained(args.model_name_or_path,num_labels=num_labels)
+    # config = config_class.from_pretrained('google-bert/bert-base-chinese',num_labels=num_labels)
     config.loss_type = args.loss_type
     tokenizer = tokenizer_class.from_pretrained(args.model_name_or_path,do_lower_case=args.do_lower_case,)
     model = model_class.from_pretrained(args.model_name_or_path,config=config)
+    # model = model_class.from_pretrained('google-bert/bert-base-chinese', config=config)
     if args.local_rank == 0:
         torch.distributed.barrier()  # Make sure only the first process in distributed training will download model & vocab
 
